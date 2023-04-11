@@ -32,10 +32,7 @@ public class Response {
         FileInputStream fis = null;
         try {
             File file = new File(HttpServer.WEB_ROOT, request.getUri());
-            String head = """
-                    HTTP/1.1 200 OK
-                    
-                    """;
+            String head = "HTTP/1.1 200 OK\r\n";
             /**
              *  HTTP回复报文格式
              *  状态行\r\n
@@ -55,12 +52,11 @@ public class Response {
                 }
             } else {
                 // 文件没有找到
-                String errorMessage = """
-                        HTTP/1.1 404 File Not Found\r
-                        Content-Type: text/html\r
-                        Content-Length: 23\r
-                        \r
-                        <h1>File Not Found</h1>""";
+                String errorMessage = "HTTP/1.1 404 File Not Found\r\n" +
+                                      "Content-Type: text/html\r\n" +
+                                      "Content-Length: 23\r\n" +
+                                      "\r\n" +
+                                      "<h1>File Not Found</h1>";
                 output.write(errorMessage.getBytes());
             }
         } catch (Exception e) {
